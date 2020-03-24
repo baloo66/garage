@@ -26,6 +26,7 @@ void admin() {      // Funktionsaufruf "admin();" muss im Setup eingebunden werd
 
 
 
+// 
 void handlerenew() {    // Um die am ADC-Pin anliegende externe Spannung zu lesen, verwende analogRead (A0)
   server.send(200, "application/json", "[\"" + runtime() + "\",\"" + WiFi.RSSI() + "\",\"" + analogRead(A0) + "\"]");     // Json als Array
 }
