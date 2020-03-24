@@ -42,3 +42,50 @@
           Web-Kommandos
             POST /doorinterval      -> Zeitintervall ausgelöst
             POST /door              -> Haustüre tasten
+
+
+
+```
+#include <stdbool.h>
+#include <stdio.h>
+
+typedef unsigned char byte;
+
+#define TAG_LEN 4
+
+byte OK[][TAG_LEN] = { { 0x01, 0x02, 0x03, 0x04 },
+                       { 0x05, 0x06, 0x07, 0x08 },
+                       { 0x09, 0x0A, 0x0B, 0x0C } };
+
+
+bool compareOneTag(byte srcTag[TAG_LEN], byte testTag[TAG_LEN]) {
+    bool result = true;
+    for (int i=0; i<TAG_LEN; i++) {
+        if (srcTag[i] != testTag[i]) {
+            result = false;
+        }
+    }
+    return result;
+}
+
+
+
+bool checkTag(byte testTag[TAG_LEN]) {
+    for (int i=0; i < (sizeof(OK)/sizeof(OK[0])); i++) {
+        if (compareOneTag(OK[i], testTag)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+int main() {
+    printf("Hello ...\n");
+    byte TESTEE[TAG_LEN] = { 0x05, 0x06, 0x07, 0x08 };
+    printf("result %d \n", checkTag(TESTEE));
+    printf("... bye\n");
+
+    return 0;
+}
+```
